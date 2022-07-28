@@ -1,13 +1,13 @@
 const data = require('../data/zoo_data');
 
-const entrantsList = [
-  { name: 'Lara Carvalho', age: 5 },
-  { name: 'Frederico Moreira', age: 5 },
-  { name: 'Pedro Henrique Carvalho', age: 5 },
-  { name: 'Maria Costa', age: 18 },
-  { name: 'Núbia Souza', age: 18 },
-  { name: 'Carlos Nogueira', age: 50 },
-];
+// const entrantsList = [
+//   { name: 'Lara Carvalho', age: 5 },
+//   { name: 'Frederico Moreira', age: 5 },
+//   { name: 'Pedro Henrique Carvalho', age: 5 },
+//   { name: 'Maria Costa', age: 18 },
+//   { name: 'Núbia Souza', age: 18 },
+//   { name: 'Carlos Nogueira', age: 50 },
+// ];
 
 function getKey(age) {
   if (age < 18) {
@@ -34,12 +34,29 @@ function countEntrants(entrants) {
   }, {});
 }
 
-console.log(countEntrants(entrantsList));
+// console.log(countEntrants(entrantsList));
+// PARA CHECAR SE O OBJETO É VAZIO: ref https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+
+function objIsEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if (!entrants || objIsEmpty(entrants)) {
+    return 0;
+  }
+  const { prices } = data;
+  const finalResult = entrants.reduce((total, currentPerson) => {
+    let totalCopy = total;
+    const { age } = currentPerson;
+    const key = getKey(age);
+    totalCopy += prices[key];
+    return totalCopy;
+  }, 0);
+  return Number(finalResult.toFixed(2));
 }
 
-console.log(calculateEntry(entrantsList));
+// console.log(calculateEntry());
 
 module.exports = { calculateEntry, countEntrants };
