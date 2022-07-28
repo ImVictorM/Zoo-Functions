@@ -14,7 +14,7 @@ function getManagers() {
 }
 
 const managers = getManagers();
-console.log(managers);
+// console.log(managers);
 
 function isManager(id) {
   // seu código aqui
