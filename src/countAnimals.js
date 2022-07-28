@@ -28,8 +28,8 @@ function countAnimals(animal) {
     return countCopy;
   }, 0);
 }
-console.log(countAnimals());
-console.log(countAnimals({ specie: 'penguins' }));
-console.log(countAnimals({ specie: 'elephants', sex: 'male' }));
+// console.log(countAnimals());
+// console.log(countAnimals({ specie: 'penguins' }));
+// console.log(countAnimals({ specie: 'elephants', sex: 'male' }));
 
 module.exports = countAnimals;
