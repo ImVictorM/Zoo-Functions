@@ -2,15 +2,17 @@ const data = require('../data/zoo_data');
 
 const { species } = data;
 
-const genericObj = {
-  NE: [],
-  NW: [],
-  SE: [],
-  SW: [],
-};
+function createGenericObj() {
+  return {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+}
 
-function mapAnimals(animals, obj) {
-  const map = obj;
+function mapAnimals(animals) {
+  const map = createGenericObj();
   animals.forEach((currentAnimal) => {
     const { location: currLocation, name: animalName } = currentAnimal;
     map[currLocation].push(animalName);
@@ -18,11 +20,17 @@ function mapAnimals(animals, obj) {
   return map;
 }
 
+// function createMapByName() {
+
+// }
+
 function getAnimalMap(options) {
-  if (!options) return mapAnimals(species, genericObj);
-  const { includeNames, sex, sorted } = options;
+  if (!options || !options.includeNames) {
+    return mapAnimals(species);
+  }
 }
 
 console.log(getAnimalMap());
+console.log(getAnimalMap({ sex: 'female' }));
 
 module.exports = getAnimalMap;
