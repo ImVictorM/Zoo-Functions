@@ -1,22 +1,26 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
-function mapAnimals(animals) {
-  return animals.reduce((map, currentAnimal) => {
-    const mapCopy = map;
+
+const genericObj = {
+  NE: [],
+  NW: [],
+  SE: [],
+  SW: [],
+};
+
+function mapAnimals(animals, obj) {
+  const map = obj;
+  animals.forEach((currentAnimal) => {
     const { location: currLocation, name: animalName } = currentAnimal;
-    if (!mapCopy[currLocation]) {
-      mapCopy[currLocation] = [];
-      mapCopy[currLocation].push(animalName);
-    } else {
-      mapCopy[currLocation].push(animalName);
-    }
-    return mapCopy;
-  }, {});
+    map[currLocation].push(animalName);
+  });
+  return map;
 }
 
 function getAnimalMap(options) {
-  if (!options) return mapAnimals(species);
+  if (!options) return mapAnimals(species, genericObj);
+  const { includeNames, sex, sorted } = options;
 }
 
 console.log(getAnimalMap());
