@@ -10,11 +10,6 @@ function getEmployee(personInfo) {
   return employees.find((person) => person.id === id);
 }
 
-// function getEmployeeById(id) {
-//   const worker = employees.find((person) => person.id === id);
-//   return worker;
-// }
-
 function getResponsibleSpecies(person) {
   const { responsibleFor } = person;
   const animalsReposibleFor = species.reduce((acc, animal) => {
@@ -27,7 +22,7 @@ function getResponsibleSpecies(person) {
   return animalsReposibleFor;
 }
 
-function getEspeciesLocation(speciesList) {
+function getSpeciesLocation(speciesList) {
   return species.reduce((location, currentSpecie) => {
     const locationCopy = location;
     if (speciesList.includes(currentSpecie.name)) {
@@ -40,7 +35,7 @@ function getEspeciesLocation(speciesList) {
 function createEmployeeCoverage(person) {
   const { id, firstName, lastName } = person;
   const responsibleSpecies = getResponsibleSpecies(person);
-  const speciesLocation = getEspeciesLocation(responsibleSpecies);
+  const speciesLocation = getSpeciesLocation(responsibleSpecies);
   return {
     id,
     fullName: `${firstName} ${lastName}`,
