@@ -2,13 +2,18 @@ const data = require('../data/zoo_data');
 
 const { employees, species } = data;
 
-function getEmployeeByName(name) {
-  return employees.find((person) => person.firstName === name || person.lastName === name);
-}
-
-function getEmployeeById(id) {
+function getEmployee(personInfo) {
+  const { name, id } = personInfo;
+  if (!id) {
+    return employees.find((person) => person.firstName === name || person.lastName === name);
+  }
   return employees.find((person) => person.id === id);
 }
+
+// function getEmployeeById(id) {
+//   const worker = employees.find((person) => person.id === id);
+//   return worker;
+// }
 
 function getResponsibleSpecies(person) {
   const { responsibleFor } = person;
@@ -38,25 +43,33 @@ function createEmployeeCoverage(person) {
   const speciesLocation = getEspeciesLocation(responsibleSpecies);
   return {
     id,
-    fullname: `${firstName} ${lastName}`,
+    fullName: `${firstName} ${lastName}`,
     species: responsibleSpecies,
     locations: speciesLocation,
   };
 }
 
+function completeEmployeesCoverage(people) {
+  return people.reduce((coverage, person) => {
+    const coverageCopy = coverage;
+    const personCoverage = createEmployeeCoverage(person);
+    coverageCopy.push(personCoverage);
+    return coverageCopy;
+  }, []);
+}
+
 function getEmployeesCoverage(personInfo) {
-  // seu código aqui
-  let employee;
-  const { name, id } = personInfo;
-  if (!id) {
-    employee = getEmployeeByName(name);
-  } else {
-    employee = getEmployeeById(id);
+  if (!personInfo) {
+    return completeEmployeesCoverage(employees);
   }
-  const employeeCoverage = createEmployeeCoverage(employee);
-  return employeeCoverage;
+  const employee = getEmployee(personInfo);
+  if (!employee) {
+    throw new Error('Informações inválidas');
+  }
+  return createEmployeeCoverage(employee);
 }
 // console.log(getEmployeesCoverage({ name: 'Spry' }));
-// console.log(getEmployeesCoverage({ id: 'c1f50212-35a6-4ecd-8223-f835538526c2' }));
-console.log(getEmployeesCoverage());
+// console.log(getEmployeesCoverage({ id: 'c1f50212-35a6-4ecd-8223-f83553852' }));
+// console.log(getEmployeesCoverage());
+
 module.exports = getEmployeesCoverage;
