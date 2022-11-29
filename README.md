@@ -1,6 +1,6 @@
 # Zoo Functions 🦍
 
-<h3>Project Context</h3>
+<h2>Project Context</h2>
 
 City Hall has given you an important mission: organize zoo information! 🐘 
 
